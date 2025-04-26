@@ -1,18 +1,24 @@
 from fastapi import FastAPI
-import os
+from pydantic import BaseModel
+from transformers import pipeline
 
+# Init FastAPI app
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello World! Deployed on Railway 🚂🔥"}
+# Load model pipeline once when app starts
+model = pipeline("text-classification", model="w11wo/indonesian-roberta-base-predict-id")
 
-# Biar compatible sama Railway (port environment variable)
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(
-        "main:app",
-        host="0.0.0.0",
-        port=int(os.environ.get("PORT", 8000)),
-        reload=True
-    )
+# Define request body
+class TextRequest(BaseModel):
+    text: str
+
+# Define response route
+@app.post("/predict")
+async def predict_emotion(request: TextRequest):
+    prediction = model(request.text)
+    return {"result": prediction}
+
+# Root endpoint
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the Indonesian Text Prediction API"}
