@@ -2,12 +2,15 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import pipeline
 from huggingface_hub import login
- 
-# Init FastAPI app
+import os
+
 app = FastAPI()
 
-# Load model pipeline once when app starts
-pretrained_name = "w11wo/indonesian-roberta-base-prdect-id"
+# Login ke Huggingface pakai token
+login(token=os.getenv("HF_TOKEN"))  # disarankan lewat env, bukan hardcode
+
+# Load model pipeline sekali saat app start
+pretrained_name = "w11wo/indonesian-roberta-base-predict-id"
 nlp = pipeline(
     "sentiment-analysis",
     model=pretrained_name,
@@ -18,10 +21,10 @@ nlp = pipeline(
 class TextRequest(BaseModel):
     text: str
 
-# Define response route
+# Endpoint predict
 @app.post("/predict")
 async def predict_emotion(request: TextRequest):
-    prediction = model(request.text)
+    prediction = nlp(request.text)
     return {"result": prediction}
 
 # Root endpoint
