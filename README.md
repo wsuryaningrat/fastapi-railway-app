@@ -1,8 +1,21 @@
-# My FastAPI App 🚀
+# API Documentation
 
-Simple FastAPI app ready for deploy to Railway.
+This project provides an API for text emotion prediction using the `w11wo/indonesian-roberta-base-predict-id` model deployed on Railway. Below are the details of the two endpoints available:
 
-## Running Locally
+---
+
+## Base URL
+`https://<your-deployed-url>.up.railway.app`
+
+Replace `<your-deployed-url>` with the actual domain of your deployed application.
+
+---
+
+## 1. `GET /`
+
+### Description:
+Returns a welcome message indicating the server is running.
+
+### Example Request:
 ```bash
-pip install -r requirements.txt
-python main.py
+GET https://<your-deployed-url>.up.railway.app/
