@@ -4,12 +4,13 @@ from transformers import pipeline
 from huggingface_hub import login
 import os
 
+# LOGIN ke Hugging Face pakai token
+login(token=os.getenv("HUGGINGFACEHUB_API_TOKEN"))
+
+# Init FastAPI app
 app = FastAPI()
 
-# Login ke Huggingface pakai token
-# login(token=os.getenv("HF_TOKEN"))   
-
-# Load model pipeline sekali saat app start
+# Load model pipeline once when app starts
 pretrained_name = "w11wo/indonesian-roberta-base-predict-id"
 nlp = pipeline(
     "sentiment-analysis",
@@ -21,7 +22,7 @@ nlp = pipeline(
 class TextRequest(BaseModel):
     text: str
 
-# Endpoint predict
+# Define response route
 @app.post("/predict")
 async def predict_emotion(request: TextRequest):
     prediction = nlp(request.text)
