@@ -7,7 +7,7 @@ import os
 app = FastAPI()
 
 # Login ke Huggingface pakai token
-login(token=os.getenv("HF_TOKEN"))  # disarankan lewat env, bukan hardcode
+# login(token=os.getenv("HF_TOKEN"))   
 
 # Load model pipeline sekali saat app start
 pretrained_name = "w11wo/indonesian-roberta-base-predict-id"
