@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import pipeline
+from huggingface_hub import login
+
+# Login ke Hugging Face dengan token pribadi kamu
+login(token="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")
 
 # Init FastAPI app
 app = FastAPI()
