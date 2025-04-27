@@ -2,15 +2,17 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import pipeline
 from huggingface_hub import login
-
-# Login ke Hugging Face dengan token pribadi kamu
-login(token="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")
-
+ 
 # Init FastAPI app
 app = FastAPI()
 
 # Load model pipeline once when app starts
-model = pipeline("text-classification", model="w11wo/indonesian-roberta-base-predict-id")
+pretrained_name = "w11wo/indonesian-roberta-base-prdect-id"
+nlp = pipeline(
+    "sentiment-analysis",
+    model=pretrained_name,
+    tokenizer=pretrained_name
+)
 
 # Define request body
 class TextRequest(BaseModel):
