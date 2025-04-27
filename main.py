@@ -11,7 +11,7 @@ login(token=os.getenv("HUGGINGFACEHUB_API_TOKEN"))
 app = FastAPI()
 
 # Load model pipeline once when app starts
-pretrained_name = "w11wo/indonesian-roberta-base-predict-id"
+pretrained_name = "w11wo/indonesian-roberta-base-prdect-id"
 nlp = pipeline(
     "sentiment-analysis",
     model=pretrained_name,
