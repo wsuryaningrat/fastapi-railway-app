@@ -1,7 +1,8 @@
+## Text to Emotion API
 
-POST https://web-production-d05a.up.railway.app/predict
-Content-Type: application/json
-
+- Endpoint: https://web-production-d05a.up.railway.app/predict
+- Content-Type: application/json
+- Example
 {
   "text": "Saya sangat senang hari ini!"
 }
